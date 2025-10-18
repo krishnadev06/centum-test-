@@ -41,6 +41,68 @@
         .accordion-header.active .fa-chevron-down {
             transform: rotate(180deg);
         }
+
+        /* Styles for on-scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: transform, opacity;
+        }
+        .slide-in-left { transform: translateX(-50px); }
+        .slide-in-right { transform: translateX(50px); }
+        .slide-in-up { transform: translateY(50px); }
+        .scale-up { transform: scale(0.9); }
+        .fade-in { /* No transform needed, just opacity */ }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Hero Section Entry Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInFromBottom {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-hero-headline {
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .animate-hero-paragraph {
+            opacity: 0;
+            animation: fadeIn 0.8s 0.3s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .animate-hero-buttons {
+            opacity: 0;
+            animation: slideInFromBottom 0.8s 0.5s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .animate-hero-card {
+            opacity: 0;
+            animation: floatInRight 0.8s 0.7s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Hide scrollbar for horizontal scroll sections while keeping functionality */
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+        .horizontal-scroll-container {
+            -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+            scrollbar-width: none;  /* For Firefox */
+        }
+
     </style>
 </head>
 <body>
@@ -50,36 +112,46 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Navbar -->
-            <nav class="flex justify-between items-center mb-16">
-                <div class="text-3xl font-extrabold tracking-tight">CENTUM  Cherpulassery <i class="fab fa-twitter text-lg"></i></div>
-                <div class="hidden lg:flex space-x-8 text-sm font-medium">
-                    <a href="#programs" class="hover:text-yellow-300 transition duration-300">Programs</a>
-                    <a href="#enroll" class="hover:text-yellow-300 transition duration-300">Enroll</a>                    
-                    <a href="#aboutus" class="hover:text-yellow-300 transition duration-300">About Us</a>                    
-                    <a href="#success" class="hover:text-yellow-300 transition duration-300">Success Stories</a>
-                    <a href="#faq" class="hover:text-yellow-300 transition duration-300">FAQ</a>
-
+            <nav class="relative z-[60] flex justify-between items-center mb-16">
+                <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">CENTUM  Cherpulassery <i class="fab fa-twitter text-lg"></i></div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center">
+                    <div class="space-x-8 text-sm font-medium">
+                        <a href="#programs" class="hover:text-yellow-300 transition duration-300">Programs</a>
+                        <a href="#enroll" class="hover:text-yellow-300 transition duration-300">Enroll</a>                    
+                        <a href="#aboutus" class="hover:text-yellow-300 transition duration-300">About Us</a>                    
+                        <a href="#success" class="hover:text-yellow-300 transition duration-300">Success Stories</a>
+                        <a href="#faq" class="hover:text-yellow-300 transition duration-300">FAQ</a>
+                    </div>
+                    <a href="#enroll" class="ml-8 bg-white text-indigo-800 px-5 py-2 rounded-full font-bold shadow-lg hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Enroll
+                    </a>
                 </div>
-                <a href="#enroll" class="bg-white text-indigo-800 px-5 py-2 rounded-full font-bold shadow-lg hover:bg-gray-100 transition duration-300">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Enroll
-                </a>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i id="mobile-menu-icon" class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </nav>
 
             <!-- Hero Content -->
             <div class="lg:flex lg:items-center">
                 <div class="lg:w-3/5">
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 animate-hero-headline">
                         A good <span class="text-yellow-300">#education</span> is always a foundation of
                         <span class="block mt-4">
                             <span class="bg-blue-500 px-4 py-2 rounded-xl inline-block shadow-xl">a bright future</span>
                         </span>
                     </h1>
-                    <p class="text-lg mb-8 text-indigo-200 max-w-lg">
+                    <p class="text-lg mb-8 text-indigo-200 max-w-lg animate-hero-paragraph">
                         Located in the heart of Cherpulassery, Palakkad, Kerala, Centum offers specialized classes for 8th, 9th, 10th, 11th , 12th-grade students following the Kerala State Syllabus & NCERT.
                     </p>
 
                     <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div class="flex flex-col sm:flex-row gap-4 mb-6 animate-hero-buttons">
                         <a href="#enroll" class="inline-flex justify-center items-center bg-yellow-400 text-indigo-900 font-bold py-3 px-8 rounded-xl shadow-2xl hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
                             Start Learning Today <i class="fas fa-arrow-right ml-2"></i>
                         </a>
@@ -94,7 +166,7 @@
                 </div>
 
                 <!-- Decorative elements/Mock UI Cards (Inspired by the template image) -->
-                <div class="lg:w-2/5 mt-12 lg:mt-0 relative flex justify-center">
+                <div class="lg:w-2/5 mt-12 lg:mt-0 relative flex justify-center animate-hero-card">
                     <!-- Placeholder for the overlapping graphic elements -->
                     <div class="relative w-80 h-80 md:w-96 md:h-96">
                         <div class="absolute inset-0 bg-white bg-opacity-10 rounded-3xl transform rotate-12"></div>
@@ -118,25 +190,19 @@
     </header>
 
 
-    <!-- About Us Section (NEW) -->
+    <!-- About Us Section -->
     <section id="aboutus" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:flex lg:items-center lg:space-x-12">
                 
-                <!-- Left Column: Image/Visual -->
-                <div class="lg:w-1/2 mb-12 lg:mb-0 relative">
-                    <img class="rounded-2xl shadow-2xl border-4 border-indigo-500 transform -rotate-2 w-full h-auto" src="https://media.assettype.com/tnm%2Fimport%2Fsites%2Fdefault%2Ffiles%2Fchildren_school_750.jpg?w=480&auto=format%2Ccompress&fit=max" alt="Centum Classroom Environment">
-                    <div class="absolute bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-lg shadow-xl font-bold text-sm transform rotate-3 hidden sm:block">
-                        <i class="fas fa-map-marker-alt mr-1"></i> Cherpulassery, Palakkad
-                    </div>
-                </div>
+ 
 
                 <!-- Right Column: Content -->
-                <div class="lg:w-1/2">
+                <div class="lg:w-1/2 animate-on-scroll slide-in-right">
                     <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase mb-2">
                         Who We Are
                     </h2>
-                    <p class="text-4xl font-bold text-gray-900 mb-6">
+                    <p class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
                         Nurturing Future <span class="text-yellow-500">Centum</span> Achievers.
                     </p>
                     
@@ -165,19 +231,57 @@
         </div>
     </section>
 
+    <!-- Animated Number Counters Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4 animate-on-scroll fade-in">Why Choose Centum?</h2>
+                <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll fade-in" style="transition-delay: 100ms;">
+                    Our results speak for themselves. We are committed to excellence and student success.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Counter 1: Students -->
+                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up">
+                    <i class="fas fa-user-graduate text-5xl text-indigo-500 mb-4"></i>
+                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
+                        <span class="counter" data-target="100">0</span>+
+                    </p>
+                    <h3 class="text-lg font-semibold text-gray-600">Satisfied Students</h3>
+                </div>
+                <!-- Counter 2: Experience -->
+                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up" style="transition-delay: 200ms;">
+                    <i class="fas fa-award text-5xl text-green-500 mb-4"></i>
+                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
+                        <span class="counter" data-target="15">0</span>+
+                    </p>
+                    <h3 class="text-lg font-semibold text-gray-600">Years of Combined Experience</h3>
+                </div>
+                <!-- Counter 3: Success Rate -->
+                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up" style="transition-delay: 400ms;">
+                    <i class="fas fa-check-circle text-5xl text-yellow-500 mb-4"></i>
+                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
+                        <span class="counter" data-target="95">0</span>%
+                    </p>
+                    <h3 class="text-lg font-semibold text-gray-600">Success Rate</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Subjects/Programs Section -->
     <section id="programs" class="py-20 -mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-4 animate-on-scroll fade-in">
                 Comprehensive Tuition Programs
             </h2>
-            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll fade-in" style="transition-delay: 100ms;">
                 Our programs are structured for deep conceptual clarity and high scores in the Kerala State Syllabus exams & NCERT.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="horizontal-scroll-container flex overflow-x-auto gap-6 p-4 -mx-4 md:grid md:grid-cols-3 md:gap-8 md:p-0 md:mx-0">
                 <!-- Subject Card: Mathematics -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-indigo-500">
+                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-indigo-500 animate-on-scroll slide-in-up">
                     <i class="fas fa-calculator text-4xl text-indigo-500 mb-4"></i>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">Mathematics</h3>
                     <ul class="space-y-2 text-gray-600 text-sm">
@@ -188,7 +292,7 @@
                 </div>
                 
                 <!-- Subject Card: Science (Physics, Chem, Bio) -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-green-500">
+                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-green-500 animate-on-scroll slide-in-up" style="transition-delay: 200ms;">
                     <i class="fas fa-flask text-4xl text-green-500 mb-4"></i>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">Science</h3>
                     <ul class="space-y-2 text-gray-600 text-sm">
@@ -199,7 +303,7 @@
                 </div>
 
                 <!-- Subject Card: Language & Social Studies -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-yellow-500">
+                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-yellow-500 animate-on-scroll slide-in-up" style="transition-delay: 400ms;">
                     <i class="fas fa-book-open text-4xl text-yellow-500 mb-4"></i>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">Languages & Social</h3>
                     <ul class="space-y-2 text-gray-600 text-sm">
@@ -216,8 +320,8 @@
     <section class="bg-gray-50 py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:flex lg:items-center lg:space-x-12">
-                <div class="lg:w-1/2">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Personalized Learning Support</h2>
+                <div class="lg:w-1/2 animate-on-scroll slide-in-left">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Personalized Learning Support</h2>
                     <p class="text-gray-600 text-lg mb-6">
                         We provide personalized attention to each student, helping them overcome challenges and achieve their academic goals. Our faculty offers tailored guidance, regular progress tracking, and customized study plans to ensure every student succeeds.
                     </p>
@@ -236,7 +340,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="lg:w-1/2 mt-12 lg:mt-0">
+                <div class="lg:w-1/2 mt-12 lg:mt-0 animate-on-scroll slide-in-right">
                     <img class="rounded-xl shadow-2xl border-4 border-white" src="https://www.21kschool.com/blog/wp-content/uploads/2022/09/5-Benefits-of-Personalized-Learning.png" alt="Personalized Learning Diagram">
                 </div>
             </div>
@@ -246,14 +350,14 @@
     <!-- Testimonials Section -->
     <section id="success" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Students Love Centum</h2>
-            <p class="text-xl text-gray-600 mb-12">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4 animate-on-scroll fade-in">Our Students Love Centum</h2>
+            <p class="text-xl text-gray-600 mb-12 animate-on-scroll fade-in" style="transition-delay: 100ms;">
                 Join 100+ satisfied students who have achieved academic excellence with us.
             </p>
 
-            <div class="flex flex-wrap justify-center gap-8 mb-12">
+            <div class="horizontal-scroll-container flex overflow-x-auto gap-6 p-4 -mx-4 md:flex-wrap md:justify-center md:gap-8 md:p-0 md:mx-0 mb-12">
                 <!-- Testimonial 1 (Inspired by image_9e7f0d.jpg blue card) -->
-                <div class="max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-indigo-500">
+                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-indigo-500 animate-on-scroll scale-up">
                     <div class="absolute top-0 left-0 p-3 bg-indigo-500 rounded-br-xl rounded-tl-xl">
                         <i class="fas fa-quote-left text-white text-2xl"></i>
                     </div>
@@ -268,38 +372,38 @@
                         </div>
                     </div>
                 </div>
-    <div class="max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-black-500">
-        <div class="absolute top-0 left-0 p-3 bg-black-500 rounded-br-xl rounded-tl-xl">
-            <i class="fas fa-quote-left text-white text-2xl"></i>
-        </div>
-        <p class="text-gray-700 text-lg italic mb-6">
-            "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
-        </p>
-        <div class="flex items-center space-x-4">
-            <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
-            <div>
-                <p class="font-bold text-green-800">SWETHA</p>
-                <p class="text-sm text-gray-500">12TH GRADE STUDENT, PERINTHALMANNA</p>
-            </div>
-        </div>
-    </div>                
-    <div class="max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-green-500">
-        <div class="absolute top-0 left-0 p-3 bg-green-500 rounded-br-xl rounded-tl-xl">
-            <i class="fas fa-quote-left text-white text-2xl"></i>
-        </div>
-        <p class="text-gray-700 text-lg italic mb-6">
-            "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
-        </p>
-        <div class="flex items-center space-x-4">
-            <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
-            <div>
-                <p class="font-bold text-green-800">AKSHAY</p>
-                <p class="text-sm text-gray-500">9TH GRADE STUDENT, PERINTHALMANNA</p>
-            </div>
-        </div>
-    </div>
+                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-green-500 animate-on-scroll scale-up" style="transition-delay: 150ms;">
+                    <div class="absolute top-0 left-0 p-3 bg-green-500 rounded-br-xl rounded-tl-xl">
+                        <i class="fas fa-quote-left text-white text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 text-lg italic mb-6">
+                        "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
+                        <div>
+                            <p class="font-bold text-green-800">SWETHA</p>
+                            <p class="text-sm text-gray-500">12TH GRADE STUDENT, PERINTHALMANNA</p>
+                        </div>
+                    </div>
+                </div>                
+                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-green-500 animate-on-scroll scale-up" style="transition-delay: 300ms;">
+                    <div class="absolute top-0 left-0 p-3 bg-green-500 rounded-br-xl rounded-tl-xl">
+                        <i class="fas fa-quote-left text-white text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 text-lg italic mb-6">
+                        "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
+                        <div>
+                            <p class="font-bold text-green-800">AKSHAY</p>
+                            <p class="text-sm text-gray-500">9TH GRADE STUDENT, PERINTHALMANNA</p>
+                        </div>
+                    </div>
+                </div>
                 <!-- Testimonial 2 -->
-                <div class="max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-yellow-500">
+                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-yellow-500 animate-on-scroll scale-up" style="transition-delay: 450ms;">
                     <div class="absolute top-0 left-0 p-3 bg-yellow-500 rounded-br-xl rounded-tl-xl">
                         <i class="fas fa-quote-left text-white text-2xl"></i>
                     </div>
@@ -330,7 +434,7 @@
 
 
    <!-- Call to Action/Enrollment Section (Updated to Two-Column Template) -->
-    <section id="enroll" class="py-20 bg-indigo-800 text-white">
+    <section id="enroll" class="py-20 bg-indigo-800 text-white animate-on-scroll fade-in">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="bg-white rounded-2xl shadow-2xl overflow-hidden lg:grid lg:grid-cols-2">
@@ -451,11 +555,11 @@
     <!-- FAQ Section -->
     <section id="faq" class="py-20 bg-gray-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-12">Frequently Asked Questions</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-12 animate-on-scroll fade-in">Frequently Asked Questions</h2>
             
             <div class="accordion text-left space-y-4">
                 
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
                         <span>What classes and syllabus do you cover?</span>
                         <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
@@ -465,7 +569,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 150ms;">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
                         <span>Do you offer classes in both English and Malayalam mediums?</span>
                         <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
@@ -475,7 +579,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 300ms;">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
                         <span>How do I enroll my child and what is the fee structure?</span>
                         <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
@@ -485,7 +589,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 450ms;">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
                         <span>How do you ensure academic success?</span>
                         <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
@@ -497,6 +601,20 @@
             </div>
         </div>
     </section>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu" class="fixed inset-0 bg-indigo-900 bg-opacity-95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="flex flex-col items-center justify-center h-full space-y-6 text-2xl">
+            <a href="#programs" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">Programs</a>
+            <a href="#aboutus" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">About Us</a>
+            <a href="#success" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">Success Stories</a>
+            <a href="#faq" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">FAQ</a>
+            <a href="#enroll" class="mobile-menu-link mt-8 bg-yellow-400 text-indigo-900 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-yellow-300 transition duration-300">
+                Enroll Now
+            </a>
+        </div>
+    </div>
+
 
     <!-- Footer -->
     <footer id="contact" class="bg-gray-900 text-white py-16">
@@ -554,8 +672,49 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Accordion -->
+    <!-- JavaScript for Interactions -->
     <script>
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        const body = document.querySelector('body');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            body.style.overflow = 'hidden';
+            mobileMenuIcon.classList.remove('fa-bars');
+            mobileMenuIcon.classList.add('fa-times');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            body.style.overflow = 'auto';
+            mobileMenuIcon.classList.remove('fa-times');
+            mobileMenuIcon.classList.add('fa-bars');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+        }
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMenu();
+            });
+        });
+        
+        // Accordion Logic
         document.querySelectorAll('.accordion-header').forEach(btn => {
             btn.addEventListener('click', () => {
                 const content = btn.nextElementSibling;
@@ -577,12 +736,51 @@
                 }
             });
         });
-        
-        // Simple form submission status handler
-        document.getElementById('inquiryFile').addEventListener('change', (event) => {
-            const fileName = event.target.files[0].name;
-            const statusDiv = document.getElementById('inquiryStatus');
-            statusDiv.innerHTML = `<i class="fas fa-check-circle mr-2"></i> File selected: ${fileName}. Please contact us to confirm submission.`;
+
+        // Animated Counter Logic
+        const animateCounter = (element, target) => {
+            let start = 0;
+            const duration = 1500; // Animation duration in ms
+            const stepTime = Math.abs(Math.floor(duration / target));
+            
+            const timer = setInterval(() => {
+                start += 1;
+                element.textContent = start;
+                if (start === target) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        };
+
+        // Intersection Observer for scroll animations
+        const animationObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Standard scroll animations
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger counter animation if the element has the .counter class
+                    if (entry.target.classList.contains('counter')) {
+                        const targetNumber = parseInt(entry.target.getAttribute('data-target'), 10);
+                        animateCounter(entry.target, targetNumber);
+                    }
+
+                    // Stop observing the element after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        // Observe elements with .animate-on-scroll
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+            animationObserver.observe(element);
+        });
+
+        // Observe counter elements
+        document.querySelectorAll('.counter').forEach(element => {
+            animationObserver.observe(element);
         });
     </script>
 </body>
