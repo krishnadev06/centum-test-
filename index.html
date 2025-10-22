@@ -1,787 +1,1514 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centum Tuition Center: Cherpulassery, Palakkad</title>
-    <!-- Load Tailwind CSS and Inter Font -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <style>
-        :root {
-            /* Custom Colors based on the provided template image */
-            --color-primary: #6e4afd; /* Deep Violet/Indigo for main BG/Highlights */
-            --color-accent: #3b82f6; /* Bright Blue for CTA */
-            --color-light: #e0f2fe; /* Light Blue for Secondary BG */
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-
-        /* Custom style for the large hero background to match the diagonal split in the image */
-        .hero-bg {
-            background-color: var(--color-primary);
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-        }
-
-        /* Custom JS styles for Accordion */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-        }
-        .accordion-content.show {
-            max-height: 500px; /* Sufficient height for content */
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        .accordion-header.active .fa-chevron-down {
-            transform: rotate(180deg);
-        }
-
-        /* Styles for on-scroll animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: transform, opacity;
-        }
-        .slide-in-left { transform: translateX(-50px); }
-        .slide-in-right { transform: translateX(50px); }
-        .slide-in-up { transform: translateY(50px); }
-        .scale-up { transform: scale(0.9); }
-        .fade-in { /* No transform needed, just opacity */ }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Hero Section Entry Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideInFromBottom {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes floatInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .animate-hero-headline {
-            opacity: 0;
-            animation: fadeInUp 0.8s 0.1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .animate-hero-paragraph {
-            opacity: 0;
-            animation: fadeIn 0.8s 0.3s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .animate-hero-buttons {
-            opacity: 0;
-            animation: slideInFromBottom 0.8s 0.5s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .animate-hero-card {
-            opacity: 0;
-            animation: floatInRight 0.8s 0.7s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        /* Hide scrollbar for horizontal scroll sections while keeping functionality */
-        .horizontal-scroll-container::-webkit-scrollbar {
-            display: none; /* For Chrome, Safari, and Opera */
-        }
-        .horizontal-scroll-container {
-            -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-            scrollbar-width: none;  /* For Firefox */
-        }
-
-    </style>
+    <title>Centum Tuition Center</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+    /* --- General Styles & Variables --- */
+:root {
+    --primary-orange: #F97316;
+    --primary-blue: #4F46E5;
+    --dark-blue: #1E293B;
+    --slate-gray: #475569;
+    --light-gray: #F8FAFC;
+    --border-color: #E2E8F0;
+    --white: #FFFFFF;
+    --font-family: 'Poppins', sans-serif;
+}
+
+html[data-theme='dark'] {
+    --primary-orange: #F97316;
+    --primary-blue: #4F46E5;
+    --dark-blue: #E2E8F0;      /* Was text, now light text */
+    --slate-gray: #94A3B8;     /* Was text, now lighter text */
+    --light-gray: #1E293B;     /* Was light bg, now dark element bg */
+    --border-color: #334155;   /* Darker border */
+    --white: #0F172A;          /* Was white bg, now main dark bg */
+    color-scheme: dark;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--slate-gray);
+    background-color: var(--white);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4 {
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+h1 { font-size: 3rem; line-height: 1.2; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.25rem; }
+
+section {
+    padding: 80px 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    margin-bottom: 16px;
+}
+
+.highlight-orange { color: var(--primary-orange); }
+.highlight-blue { color: var(--primary-blue); }
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-orange);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: #FB923C;
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--dark-blue);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--light-gray);
+}
+
+html[data-theme='dark'] .btn-secondary {
+    background-color: #334155;
+    color: var(--dark-blue);
+    border-color: #475569;
+}
+html[data-theme='dark'] .btn-secondary:hover {
+    background-color: #475569;
+}
+
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+html[data-theme='dark'] .card {
+    background-color: var(--light-gray);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Header & Navigation --- */
+.header {
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 15px 0;
+}
+html[data-theme='dark'] .header {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+}
+
+.subtitle {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--slate-gray);
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: var(--slate-gray);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: var(--primary-orange);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--slate-gray);
+    transition: color 0.3s ease;
+}
+.theme-toggle:hover {
+    color: var(--primary-orange);
+}
+.theme-toggle svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Hide one icon based on theme */
+.moon-icon { display: block; }
+.sun-icon { display: none; }
+
+html[data-theme='dark'] .moon-icon { display: none; }
+html[data-theme='dark'] .sun-icon { display: block; }
+
+.nav-toggle { display: none; }
+
+
+/* --- Hero Section --- */
+.hero {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.8) 70%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    padding-top: 60px;
+    padding-bottom: 0;
+}
+html[data-theme='dark'] .hero {
+     background-image: linear-gradient(to right, #0F172A 10%, rgba(15, 23, 42, 0.8) 70%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop');
+}
+
+.hero-content {
+    max-width: 650px;
+    padding-bottom: 60px;
+}
+
+.hero-content .tagline {
+    display: inline-block;
+    background-color: #FFF7ED;
+    color: var(--primary-orange);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+html[data-theme='dark'] .hero-content .tagline {
+    background-color: #4A2609;
+    color: #FB923C;
+}
+
+.hero-content h1 {
+    margin-bottom: 24px;
+}
+
+.hero-content .description {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+}
+
+.hero-content .info-box {
+    background-color: #EEF2FF;
+    color: var(--primary-blue);
+    padding: 10px 16px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 32px;
+}
+html[data-theme='dark'] .hero-content .info-box {
+    background-color: #312E81;
+    color: #A5B4FC;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.hero-stats {
+    background-color: rgba(248, 250, 252, 0.9);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid var(--border-color);
+    padding: 30px 0;
+}
+html[data-theme='dark'] .hero-stats {
+    background-color: rgba(15, 23, 42, 0.9);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* Animation styles */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.hero-stats.in-view .stat-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-stats.in-view .stat-item:nth-child(2) { transition-delay: 0.2s; }
+.hero-stats.in-view .stat-item:nth-child(3) { transition-delay: 0.4s; }
+
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+.stat-item p {
+    text-align: left;
+    line-height: 1.3;
+}
+
+/* --- About Section --- */
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+/* --- Why Choose Us Section --- */
+.why-section {
+    background-color: var(--light-gray);
+}
+html[data-theme='dark'] .why-section {
+    background-color: var(--white);
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    text-align: center;
+}
+.icon-wrapper {
+    background-color: #EEF2FF;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+html[data-theme='dark'] .icon-wrapper {
+    background-color: #312E81;
+}
+
+.icon-wrapper svg {
+    width: 40px;
+    height: 40px;
+    color: var(--primary-blue);
+}
+
+.why-item h3 {
+    margin-bottom: 10px;
+}
+
+/* --- Programs Section --- */
+.programs-grid-container {
+    overflow: hidden;
+}
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.program-card {
+    border-top: 4px solid var(--primary-blue);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 25px;
+}
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+html[data-theme='dark'] .program-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+.program-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.program-icon {
+    background-color: #EEF2FF;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+html[data-theme='dark'] .program-icon {
+    background-color: #312E81;
+}
+.program-icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--primary-blue);
+}
+.program-header h3 {
+    font-size: 1.3rem;
+}
+
+.program-card p {
+    flex-grow: 1; /* Let description push the list down */
+    margin-bottom: 15px;
+}
+
+.program-card ul {
+    list-style: none;
+    margin-top: auto;
+    padding-left: 0; /* Remove default padding */
+}
+.program-card ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.program-card ul li .check-icon {
+    color: var(--primary-blue);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+
+/* --- FAQ Section --- */
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background-color: white;
+}
+.faq-question {
+    width: 100%;
+    background-color: var(--white);
+    border: none;
+    padding: 20px;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+html[data-theme='dark'] .faq-item,
+html[data-theme='dark'] .faq-question {
+    background-color: var(--light-gray);
+}
+
+.faq-question .arrow {
+    border: solid var(--dark-blue);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+.faq-answer p {
+    padding: 0 20px 20px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px; /* Adjust as needed */
+}
+.faq-item.active .faq-question .arrow {
+     transform: rotate(-135deg);
+}
+
+/* --- Registration Section --- */
+.register-section {
+    background-color: var(--light-gray);
+}
+html[data-theme='dark'] .register-section {
+    background-color: var(--white);
+}
+
+.reviews {
+    background-color: #FFF7ED;
+    color: var(--primary-orange);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: inline-block;
+}
+html[data-theme='dark'] .reviews {
+    background-color: #4A2609;
+    color: #FB923C;
+}
+
+.register-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+    margin-top: 20px;
+    color: var(--dark-blue);
+    font-weight: 500;
+}
+
+.register-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    margin-top: 50px;
+    align-items: flex-start;
+}
+
+.contact-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+.contact-icon {
+    background-color: #EEF2FF;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+html[data-theme='dark'] .contact-icon {
+    background-color: #312E81;
+}
+.contact-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-blue);
+}
+
+.register-form h3 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-family);
+    background-color: var(--white);
+    color: var(--slate-gray);
+}
+html[data-theme='dark'] .form-group input,
+html[data-theme='dark'] .form-group select,
+html[data-theme='dark'] .form-group textarea {
+    background-color: var(--white);
+    border-color: var(--border-color);
+    color: var(--dark-blue);
+}
+html[data-theme='dark'] .form-group input::placeholder,
+html[data-theme='dark'] .form-group textarea::placeholder {
+    color: #64748B;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.checkbox-group input {
+    width: auto;
+}
+.checkbox-group label {
+    font-size: 0.9rem;
+}
+.checkbox-group a {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+.btn-full {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--dark-blue);
+    color: #CBD5E1; /* Lighter gray for better contrast on dark bg */
+    padding: 60px 0 20px;
+}
+
+html[data-theme='dark'] .footer {
+    background-color: var(--white);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #334155;
+}
+
+html[data-theme='dark'] .footer-container {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.footer-col h4 {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+html[data-theme='dark'] .footer-col h4 {
+    color: var(--dark-blue);
+}
+
+.footer-col .logo-text .brand-name,
+.footer-col .logo-text .subtitle {
+    color: #F8FAFC;
+}
+html[data-theme='dark'] .footer-col .logo-text .brand-name,
+html[data-theme='dark'] .footer-col .logo-text .subtitle {
+    color: var(--dark-blue);
+}
+
+.footer-col .logo {
+    margin-bottom: 20px;
+}
+
+.footer-col p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.footer-col ul a {
+    text-decoration: none;
+    color: #CBD5E1;
+    font-size: 0.9rem;
+    transition: color 0.3s, padding-left 0.3s;
+    display: inline-block;
+}
+
+.footer-col ul a:hover {
+    color: var(--primary-orange);
+    padding-left: 5px;
+}
+
+.social-links a {
+    display: inline-flex;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255,255,255,0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+    justify-content: center;
+    align-items: center;
+}
+.social-links a svg {
+    width: 20px;
+    height: 20px;
+}
+
+.social-links a:hover {
+    background-color: var(--primary-orange);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+
+/* --- Scroll Animation --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-on-scroll.delay-1.is-visible { transition-delay: 0.2s; }
+.animate-on-scroll.delay-2.is-visible { transition-delay: 0.4s; }
+.animate-on-scroll.delay-3.is-visible { transition-delay: 0.6s; }
+
+.animate-on-scroll.fade-in-left { transform: translateX(-40px); }
+.animate-on-scroll.fade-in-right { transform: translateX(40px); }
+
+.animate-on-scroll.fade-in-left.is-visible,
+.animate-on-scroll.fade-in-right.is-visible {
+    transform: translateX(0);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .stat-item h3 {
+        font-size: 2rem;
+    }
+    
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .register-content { grid-template-columns: 1fr; }
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .programs-grid {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 20px; /* Space for scrollbar */
+        gap: 20px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: var(--primary-blue) var(--border-color); /* Firefox */
+    }
+
+    .programs-grid::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .programs-grid::-webkit-scrollbar-track {
+        background: var(--border-color);
+        border-radius: 4px;
+    }
+
+    .programs-grid::-webkit-scrollbar-thumb {
+        background: var(--primary-blue);
+        border-radius: 4px;
+    }
+
+    .program-card {
+        flex: 0 0 280px; /* Don't grow, don't shrink, base width */
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    section { padding: 60px 0; }
+    
+    .hero {
+        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0.9) 70%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto-format&fit=crop');
+        padding-top: 40px;
+    }
+    html[data-theme='dark'] .hero {
+         background-image: linear-gradient(to top, #0F172A 10%, rgba(15, 23, 42, 0.9) 70%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto-format&fit=crop');
+    }
+    .hero-content { padding-bottom: 40px; }
+    
+    .nav-menu {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        width: 70%;
+        background-color: var(--white);
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.4s ease-in-out, background-color 0.3s;
+        padding: 100px 0 50px;
+    }
+    html[data-theme='dark'] .nav-menu {
+        background-color: var(--light-gray);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .nav-list a {
+        font-size: 1.2rem;
+    }
+
+    .enroll-btn-desktop { display: none; }
+    
+    .enroll-btn-mobile {
+        display: block;
+        text-align: center;
+        width: 80%;
+    }
+
+    .nav-toggle {
+        display: block;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1001; /* Above nav menu */
+    }
+
+    .hamburger {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--dark-blue);
+        position: relative;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 3px;
+        background-color: var(--dark-blue);
+        left: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+    .hamburger::before { top: -8px; }
+    .hamburger::after { bottom: -8px; }
+
+    .nav-toggle.active .hamburger {
+        background-color: transparent;
+    }
+     .nav-toggle.active .hamburger::before {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+      .nav-toggle.active .hamburger::after {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+    
+    .stats-grid { grid-template-columns: 1fr; gap: 25px; }
+    .stat-item { justify-content: flex-start; }
+    .about-cards { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    
+    .logo {
+        gap: 8px;
+    }
+    
+    .logo img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .brand-name {
+        font-size: 1.25rem;
+    }
+    
+    .subtitle {
+        font-size: 0.65rem;
+    }
+
+    .register-benefits span {
+        font-size: 0.9rem;
+    }
+    
+    .contact-info {
+        text-align: center;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .card, .register-form {
+        padding: 20px;
+    }
+}
+</style>
 <body>
-
-    <!-- Header & Hero Section -->
-    <header class="hero-bg pb-48 pt-6 lg:pt-12 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Navbar -->
-            <nav class="relative z-[60] flex justify-between items-center mb-16">
-                <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">CENTUM  Cherpulassery <i class="fab fa-twitter text-lg"></i></div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden lg:flex items-center">
-                    <div class="space-x-8 text-sm font-medium">
-                        <a href="#programs" class="hover:text-yellow-300 transition duration-300">Programs</a>
-                        <a href="#enroll" class="hover:text-yellow-300 transition duration-300">Enroll</a>                    
-                        <a href="#aboutus" class="hover:text-yellow-300 transition duration-300">About Us</a>                    
-                        <a href="#success" class="hover:text-yellow-300 transition duration-300">Success Stories</a>
-                        <a href="#faq" class="hover:text-yellow-300 transition duration-300">FAQ</a>
-                    </div>
-                    <a href="#enroll" class="ml-8 bg-white text-indigo-800 px-5 py-2 rounded-full font-bold shadow-lg hover:bg-gray-100 transition duration-300">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Enroll
-                    </a>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ28SELqMf_xjvFnRvohJuQIuf0cEKM6K9lmA&s" alt="Centum Logo">
+                <div class="logo-text">
+                    <span class="brand-name">CENTUM</span>
+                    <span class="subtitle">Cherpulassery</span>
                 </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="lg:hidden">
-                    <button id="mobile-menu-button" class="text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                        <i id="mobile-menu-icon" class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#">Study Materials</a></li>
+                    <li><a href="#">Skill Development</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
             </nav>
-
-            <!-- Hero Content -->
-            <div class="lg:flex lg:items-center">
-                <div class="lg:w-3/5">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 animate-hero-headline">
-                        A good <span class="text-yellow-300">#education</span> is always a foundation of
-                        <span class="block mt-4">
-                            <span class="bg-blue-500 px-4 py-2 rounded-xl inline-block shadow-xl">a bright future</span>
-                        </span>
-                    </h1>
-                    <p class="text-lg mb-8 text-indigo-200 max-w-lg animate-hero-paragraph">
-                        Located in the heart of Cherpulassery, Palakkad, Kerala, Centum offers specialized classes for 8th, 9th, 10th, 11th , 12th-grade students following the Kerala State Syllabus & NCERT.
-                    </p>
-
-                    <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 mb-6 animate-hero-buttons">
-                        <a href="#enroll" class="inline-flex justify-center items-center bg-yellow-400 text-indigo-900 font-bold py-3 px-8 rounded-xl shadow-2xl hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
-                            Start Learning Today <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="#contact" class="inline-flex justify-center items-center border border-white text-white font-bold py-3 px-8 rounded-xl hover:bg-white hover:text-indigo-900 transition duration-300 transform hover:scale-105">
-                            Join Our Community
-                        </a>
-                    </div>
-                    
-                    <p class="text-sm text-indigo-300 mt-6">
-                        <i class="fas fa-globe mr-2"></i> Tuition available in both English and Malayalam.
-                    </p>
-                </div>
-
-                <!-- Decorative elements/Mock UI Cards (Inspired by the template image) -->
-                <div class="lg:w-2/5 mt-12 lg:mt-0 relative flex justify-center animate-hero-card">
-                    <!-- Placeholder for the overlapping graphic elements -->
-                    <div class="relative w-80 h-80 md:w-96 md:h-96">
-                        <div class="absolute inset-0 bg-white bg-opacity-10 rounded-3xl transform rotate-12"></div>
-                        <div class="absolute inset-0 bg-white rounded-3xl p-6 shadow-2xl flex flex-col items-center justify-center -rotate-6">
-                            <i class="fas fa-graduation-cap text-6xl text-indigo-500 mb-4"></i>
-                            <p class="text-indigo-900 text-xl font-bold">100% Syllabus Mastery</p>
-                            <p class="text-sm text-gray-500 mt-1">Kerala State Board & NCERT Focus</p>
-                            
-                            <!-- Mock Teacher Profiles -->
-                            <div class="mt-4 flex -space-x-2 overflow-hidden">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://lsgkerala.gov.in/electionupdates/uploads/photos/2020016103001.jpg" alt="Expert 1">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://storage.googleapis.com/ares-profile-pictures/default/anas_ananganadi-c55942be14c7123b89ad444d7067e99d.jpg" alt="Expert 2">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://placehold.co/32x32/fcd34d/000000?text=A" alt="Expert 3">
-                            </div>
-                            <p class="text-xs mt-2 text-indigo-700 font-semibold">Our Dedicated Faculty</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="nav-actions">
+                 <a href="#register" class="btn btn-primary enroll-btn-desktop">Enroll</a>
+                 <button class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.591a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25a.75.75 0 01-.75.75zM5.197 17.803a.75.75 0 010-1.06l1.59-1.591a.75.75 0 111.06 1.06l-1.59 1.59a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.197a.75.75 0 011.06 0l1.591 1.59a.75.75 0 11-1.06 1.06L6.106 6.257a.75.75 0 010-1.06z"/></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.638 4.43-8.528a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>
+                 </button>
+                 <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger"></span>
+                 </button>
             </div>
         </div>
     </header>
 
+    <main>
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content animate-on-scroll">
+                    <span class="tagline">Nurturing Future Centum Achievers</span>
+                    <h1>A good <span class="highlight-orange">#education</span> is always a foundation of a <span class="highlight-blue">bright future</span></h1>
+                    <p class="description">Located in the heart of Cherpulassery, Palakkad, Kerala. Centum offers specialized classes for 8th, 9th, 10th, 11th, 12th-grade students following the Kerala State Syllabus & NCERT.</p>
+                    <div class="info-box">✓ Tuition available in both English and Malayalam</div>
+                    <div class="hero-actions">
+                        <a href="#register" class="btn btn-primary">Start Learning Today →</a>
+                        <a href="#" class="btn btn-secondary">Join Our Community</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3 data-target="5000">0+</h3>
+                            <p>Satisfied <br>Students</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 data-target="23">0+</h3>
+                            <p>Years of <br>Experience</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 data-target="100">0%</h3>
+                            <p>Success <br>Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- About Us Section -->
-    <section id="aboutus" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:space-x-12">
-                
- 
+        <section id="about" class="container">
+            <div class="section-header animate-on-scroll">
+                <p class="section-subtitle">Who We Are</p>
+                <h2 class="section-title">Nurturing Future <span class="highlight-orange">Centum</span> Achievers</h2>
+                <p>Centum Tuition Center was founded with a single mission: to provide focused, high-quality coaching for students following the Kerala State Syllabus. We understand the unique requirements of the board and structure our teaching to maximize results for 8th, 9th, 10th, 11th, and 12th-grade students.</p>
+            </div>
+            <div class="about-cards">
+                <div class="card animate-on-scroll fade-in-left">
+                    <h3>Personalized Guidance</h3>
+                    <p>Small batch sizes ensure every student receives the individual attention needed to master complex topics.</p>
+                </div>
+                <div class="card animate-on-scroll fade-in-right delay-1">
+                    <h3>Expert Faculty</h3>
+                    <p>Our experienced tutors are specialists in the Kerala State curriculum and exam patterns.</p>
+                </div>
+            </div>
+        </section>
 
-                <!-- Right Column: Content -->
-                <div class="lg:w-1/2 animate-on-scroll slide-in-right">
-                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase mb-2">
-                        Who We Are
-                    </h2>
-                    <p class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                        Nurturing Future <span class="text-yellow-500">Centum</span> Achievers.
-                    </p>
-                    
-                    <p class="text-gray-600 text-lg mb-8">
-                        Centum Tuition Center was founded with a single mission: to provide focused, high-quality coaching for students following the **Kerala State Syllabus**. We understand the unique requirements of the board and structure our teaching to maximize results for 8th, 9th, and 10th-grade students.
-                    </p>
+        <section class="why-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                     <h2 class="section-title">Why Choose Centum?</h2>
+                     <p>Our results speak for themselves. We are committed to excellence and student success.</p>
+                </div>
+                <div class="why-grid">
+                    <div class="why-item animate-on-scroll">
+                        <div class="icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12 18a6 6 0 100-12 6 6 0 000 12zM12 15a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <h3>Dedicated Mentorship</h3>
+                        <p>Personalized mentorship for every student with customized study plans based on individual needs and learning pace.</p>
+                    </div>
+                     <div class="why-item animate-on-scroll delay-1">
+                        <div class="icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25C3.504 21 3 20.496 3 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25C10.254 21 9.75 20.496 9.75 19.875V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25c-.621 0-1.125-.504-1.125-1.125V4.125z" /></svg>
+                        </div>
+                        <h3>Regular Progress Tracking</h3>
+                        <p>Weekly assessments, detailed progress reports, and parent updates to ensure continuous improvement.</p>
+                    </div>
+                     <div class="why-item animate-on-scroll delay-2">
+                        <div class="icon-wrapper">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14.25 6.375a4.125 4.125 0 11-8.25 0 4.125 4.125 0 018.25 0zM2.25 19.125a7.5 7.5 0 0115 0v1.125c0 .621-.504 1.125-1.125 1.125H3.375A1.125 1.125 0 012.25 20.25v-1.125zM15.75 6.375a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0zM21.375 19.125a3.375 3.375 0 01-6.75 0v-1.125a.75.75 0 01.75-.75h5.25a.75.75 0 01.75.75v1.125z" /></svg>
+                        </div>
+                        <h3>Small Batch Sizes</h3>
+                        <p>Limited students per batch to guarantee individual attention and effective doubt-clearing sessions.</p>
+                    </div>
+                     <div class="why-item animate-on-scroll delay-3">
+                        <div class="icon-wrapper">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <h3>Flexible Timings</h3>
+                        <p>Multiple batch timings available to accommodate students' school schedules and personal commitments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <i class="fas fa-hand-holding-heart text-2xl text-indigo-600 mr-4 flex-shrink-0 mt-1"></i>
+        <section id="programs" class="container">
+             <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Comprehensive Tuition Programs</h2>
+                <p>Our programs are structured for deep conceptual clarity and high scores in the Kerala State Syllabus exams & NCERT.</p>
+            </div>
+            <div class="programs-grid-container">
+                <div class="programs-grid">
+                    <div class="card program-card animate-on-scroll">
+                        <div class="program-header">
+                            <div class="program-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM8.25 9.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <h3>Mathematics</h3>
+                        </div>
+                        <p>Conceptual clarity and basics, advanced problem-solving techniques, and regular objective and subjective assessments.</p>
+                        <ul>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Core concepts & fundamentals</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Advanced problem-solving</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Regular assessments</li>
+                        </ul>
+                    </div>
+                     <div class="card program-card animate-on-scroll delay-1">
+                        <div class="program-header">
+                            <div class="program-icon">
+                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.965 2.023a1.494 1.494 0 00-1.93 0l-4.01 3.437a.75.75 0 01-1.034-.02l-2.23-2.23a.75.75 0 00-1.06 1.06l2.23 2.23c.27.27.422.64.422 1.034l-3.438 4.01a1.494 1.494 0 000 1.93l3.438 4.01c.144.168.222.38.222.597V21a.75.75 0 001.5 0v-2.965a1.494 1.494 0 00-.222-.597l-3.438-4.01a.023.023 0 010-.03l3.438-4.01a1.494 1.494 0 00.222-.597V3.75a.75.75 0 00-.75-.75v-.967z"/><path d="M16.929 7.408a.75.75 0 00-1.06 1.06l2.23 2.23a.75.75 0 01.021 1.034l-3.437 4.01a1.494 1.494 0 000 1.93l4.01 3.437a1.494 1.494 0 001.93 0l4.01-3.437a.75.75 0 011.034.02l2.23 2.23a.75.75 0 001.06-1.06l-2.23-2.23a.75.75 0 01-.422-1.034l3.438-4.01a1.494 1.494 0 000-1.93l-3.438-4.01a.75.75 0 01-.222-.597V3a.75.75 0 00-1.5 0v2.965a1.494 1.494 0 00.222.597l3.438 4.01a.023.023 0 010 .03l-3.438 4.01a.75.75 0 01-.222.597v.967a.75.75 0 00.75.75v.967a1.494 1.494 0 00-.965-.37z"/></svg>
+                            </div>
+                            <h3>Science</h3>
+                        </div>
+                        <p>Interactive theory classes with focus on practical applications and in-depth analysis of textbook chapters.</p>
+                        <ul>
+                           <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Interactive theory sessions</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Practical applications</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Textbook chapter analysis</li>
+                        </ul>
+                    </div>
+                     <div class="card program-card animate-on-scroll delay-2">
+                        <div class="program-header">
+                            <div class="program-icon">
+                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 3.375A9.375 9.375 0 003.375 12.75 9.375 9.375 0 0012.75 22.125 9.375 9.375 0 0022.125 12.75 9.375 9.375 0 0012.75 3.375z" /><path d="M12.75 1.875a10.875 10.875 0 1010.875 10.875A10.887 10.887 0 0012.75 1.875zM22.5 12.75a.75.75 0 01-.75-.75 9.375 9.375 0 00-9.375-9.375.75.75 0 010-1.5 10.875 10.875 0 0110.875 10.875.75.75 0 01-.75.75z" /></svg>
+                            </div>
+                            <h3>Languages & Social</h3>
+                        </div>
+                        <p>English & Malayalam language fluency. History, Geography, and Civics focus with exam-oriented preparation.</p>
+                        <ul>
+                           <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> English & Malayalam</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> History, Geography, Civics</li>
+                            <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Previous year papers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our tuition programs</p>
+            </div>
+            <div class="faq-accordion animate-on-scroll">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">What classes and syllabus do you cover?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-1" role="region" aria-hidden="true"><p>We cover the Kerala State Syllabus and NCERT for grades 8th, 9th, 10th, 11th, and 12th.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">Do you offer classes in both English and Malayalam mediums?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-2" role="region" aria-hidden="true"><p>Yes, we provide tuition in both English and Malayalam mediums to cater to the needs of all students.</p></div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">How do I enroll my child and what is the fee structure?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-3" role="region" aria-hidden="true"><p>You can enroll by filling out the registration form on our website or by contacting us directly. Please call us for the latest fee structure.</p></div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">How do you ensure academic success?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-4" role="region" aria-hidden="true"><p>Our approach includes personalized attention, regular assessments, progress tracking, and experienced faculty to ensure every student achieves their best.</p></div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">What are the batch sizes?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-5" role="region" aria-hidden="true"><p>We maintain small batch sizes to ensure each student gets personalized attention and can clarify their doubts effectively.</p></div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">Do you provide study materials?<span class="arrow"></span></button>
+                    <div class="faq-answer" id="faq-answer-6" role="region" aria-hidden="true"><p>Yes, we provide comprehensive and specially curated study materials that are aligned with the syllabus.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="register-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <div class="reviews">Excellent ★★★★★ 100+ Verified Reviews</div>
+                    <h2 class="section-title">Secure Your Seat, Hassle-Free</h2>
+                    <p>Register directly for our specialized 8th, 9th, 10th, 11th, and 12th grade tuition batches.</p>
+                     <div class="register-benefits">
+                        <span>✓ Expert Kerala Syllabus Tutors</span>
+                        <span>✓ Transparent Fee Structure</span>
+                        <span>✓ Dedicated Study Materials</span>
+                        <span>✓ Instant Confirmation</span>
+                    </div>
+                </div>
+
+                <div class="register-content">
+                    <div class="contact-info animate-on-scroll fade-in-left">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.298-.083.465a10.482 10.482 0 005.454 5.454c.167.081.364.052.465-.083l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                            </div>
                             <div>
-                                <h3 class="font-semibold text-xl text-gray-800">Personalized Guidance</h3>
-                                <p class="text-gray-600">Small batch sizes ensure every student receives the individual attention needed to master complex topics.</p>
+                                <h4>Phone</h4>
+                                <p>+91 98765 43210 <br> Mon-Sat 8am-7pm</p>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-chalkboard-teacher text-2xl text-indigo-600 mr-4 flex-shrink-0 mt-1"></i>
+                         <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
+                            </div>
                             <div>
-                                <h3 class="font-semibold text-xl text-gray-800">Expert Faculty</h3>
-                                <p class="text-gray-600">Our experienced tutors are specialists in the Kerala State curriculum and exam patterns.</p>
+                                <h4>Email</h4>
+                                <p>info@centumtuition.com <br> We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                         <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 005.16-4.212c1.558-2.206 1.558-5.549 0-7.755a9.421 9.421 0 00-13.242 0c-1.558 2.206-1.558 5.549 0 7.755a16.975 16.975 0 005.16 4.212zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Centum Tuition Center<br>Cherpulassery, Palakkad<br>Kerala, India</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Animated Number Counters Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4 animate-on-scroll fade-in">Why Choose Centum?</h2>
-                <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll fade-in" style="transition-delay: 100ms;">
-                    Our results speak for themselves. We are committed to excellence and student success.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <!-- Counter 1: Students -->
-                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up">
-                    <i class="fas fa-user-graduate text-5xl text-indigo-500 mb-4"></i>
-                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
-                        <span class="counter" data-target="9000">0</span>+
-                    </p>
-                    <h3 class="text-lg font-semibold text-gray-600">Satisfied Students</h3>
-                </div>
-                <!-- Counter 2: Experience -->
-                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up" style="transition-delay: 200ms;">
-                    <i class="fas fa-award text-5xl text-green-500 mb-4"></i>
-                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
-                        <span class="counter" data-target="15">0</span>+
-                    </p>
-                    <h3 class="text-lg font-semibold text-gray-600">Years of Combined Experience</h3>
-                </div>
-                <!-- Counter 3: Success Rate -->
-                <div class="bg-white p-8 rounded-xl shadow-lg animate-on-scroll slide-in-up" style="transition-delay: 400ms;">
-                    <i class="fas fa-check-circle text-5xl text-yellow-500 mb-4"></i>
-                    <p class="text-5xl font-extrabold text-gray-900 mb-2">
-                        <span class="counter" data-target="95">0</span>%
-                    </p>
-                    <h3 class="text-lg font-semibold text-gray-600">Success Rate</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Subjects/Programs Section -->
-    <section id="programs" class="py-20 -mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-4 animate-on-scroll fade-in">
-                Comprehensive Tuition Programs
-            </h2>
-            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll fade-in" style="transition-delay: 100ms;">
-                Our programs are structured for deep conceptual clarity and high scores in the Kerala State Syllabus exams & NCERT.
-            </p>
-
-            <div class="horizontal-scroll-container flex overflow-x-auto gap-6 p-4 -mx-4 md:grid md:grid-cols-3 md:gap-8 md:p-0 md:mx-0">
-                <!-- Subject Card: Mathematics -->
-                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-indigo-500 animate-on-scroll slide-in-up">
-                    <i class="fas fa-calculator text-4xl text-indigo-500 mb-4"></i>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Mathematics</h3>
-                    <ul class="space-y-2 text-gray-600 text-sm">
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Conceptual clarity and basics</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Advanced problem-solving techniques</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Regular objective and subjective assessments</li>
-                    </ul>
-                </div>
-                
-                <!-- Subject Card: Science (Physics, Chem, Bio) -->
-                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-green-500 animate-on-scroll slide-in-up" style="transition-delay: 200ms;">
-                    <i class="fas fa-flask text-4xl text-green-500 mb-4"></i>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Science</h3>
-                    <ul class="space-y-2 text-gray-600 text-sm">
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Interactive theory classes</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Focus on practical applications</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> In-depth analysis of textbook chapters</li>
-                    </ul>
-                </div>
-
-                <!-- Subject Card: Language & Social Studies -->
-                <div class="w-[80%] sm:w-[60%] md:w-auto flex-shrink-0 bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-yellow-500 animate-on-scroll slide-in-up" style="transition-delay: 400ms;">
-                    <i class="fas fa-book-open text-4xl text-yellow-500 mb-4"></i>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Languages & Social</h3>
-                    <ul class="space-y-2 text-gray-600 text-sm">
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> English & Malayalam language fluency</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> History, Geography, and Civics focus</li>
-                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Exam-oriented preparation with previous papers</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Personalized Learning / Benefits Section -->
-    <section class="bg-gray-50 py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:space-x-12">
-                <div class="lg:w-1/2 animate-on-scroll slide-in-left">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Personalized Learning Support</h2>
-                    <p class="text-gray-600 text-lg mb-6">
-                        We provide personalized attention to each student, helping them overcome challenges and achieve their academic goals. Our faculty offers tailored guidance, regular progress tracking, and customized study plans to ensure every student succeeds.
-                    </p>
-                    <ul class="space-y-3 text-gray-700 font-medium">
-                        <li class="flex items-start">
-                            <i class="fas fa-user-check text-indigo-500 mr-3 mt-1"></i>
-                            <span>Dedicated Mentorship for every student.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-line text-indigo-500 mr-3 mt-1"></i>
-                            <span>Regular progress tracking and parent updates.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-clipboard-list text-indigo-500 mr-3 mt-1"></i>
-                            <span>Customized study plans based on individual needs.</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="lg:w-1/2 mt-12 lg:mt-0 animate-on-scroll slide-in-right">
-                    <img class="rounded-xl shadow-2xl border-4 border-white" src="https://www.21kschool.com/blog/wp-content/uploads/2022/09/5-Benefits-of-Personalized-Learning.png" alt="Personalized Learning Diagram">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="success" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4 animate-on-scroll fade-in">Our Students Love Centum</h2>
-            <p class="text-xl text-gray-600 mb-12 animate-on-scroll fade-in" style="transition-delay: 100ms;">
-                Join 100+ satisfied students who have achieved academic excellence with us.
-            </p>
-
-            <div class="horizontal-scroll-container flex overflow-x-auto gap-6 p-4 -mx-4 md:flex-wrap md:justify-center md:gap-8 md:p-0 md:mx-0 mb-12">
-                <!-- Testimonial 1 (Inspired by image_9e7f0d.jpg blue card) -->
-                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-indigo-500 animate-on-scroll scale-up">
-                    <div class="absolute top-0 left-0 p-3 bg-indigo-500 rounded-br-xl rounded-tl-xl">
-                        <i class="fas fa-quote-left text-white text-2xl"></i>
-                    </div>
-                    <p class="text-gray-700 text-lg italic mb-6">
-                        "Centum Tuition Center has transformed my academic journey. The teachers are incredibly supportive, and the classes are perfectly aligned with the Kerala State Syllabus. I feel confident for my 10th-grade exams!"
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-indigo-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuMdKhVdGXGt7R1JR5tZQtjFyRj5gj2R7OLg&s" alt="Anjali">
-                        <div>
-                            <p class="font-bold text-indigo-800">ANJALI</p>
-                            <p class="text-sm text-gray-500">10TH GRADE STUDENT, CHERPULASSERY</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-green-500 animate-on-scroll scale-up" style="transition-delay: 150ms;">
-                    <div class="absolute top-0 left-0 p-3 bg-green-500 rounded-br-xl rounded-tl-xl">
-                        <i class="fas fa-quote-left text-white text-2xl"></i>
-                    </div>
-                    <p class="text-gray-700 text-lg italic mb-6">
-                        "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
-                        <div>
-                            <p class="font-bold text-green-800">SWETHA</p>
-                            <p class="text-sm text-gray-500">12TH GRADE STUDENT, PERINTHALMANNA</p>
-                        </div>
-                    </div>
-                </div>                
-                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-green-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-green-500 animate-on-scroll scale-up" style="transition-delay: 300ms;">
-                    <div class="absolute top-0 left-0 p-3 bg-green-500 rounded-br-xl rounded-tl-xl">
-                        <i class="fas fa-quote-left text-white text-2xl"></i>
-                    </div>
-                    <p class="text-gray-700 text-lg italic mb-6">
-                        "The personalized attention at Centum Tuition Center is unmatched. As a 9th-grade student, I've seen a significant improvement in my understanding of complex subjects. Highly recommend for anyone looking for quality education!"
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-green-500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_GEjUeF61a6RkS1lJ40rA30v15uK-P9wB1g&s" alt="Rahul">
-                        <div>
-                            <p class="font-bold text-green-800">AKSHAY</p>
-                            <p class="text-sm text-gray-500">9TH GRADE STUDENT, PERINTHALMANNA</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimonial 2 -->
-                <div class="w-full md:w-auto flex-shrink-0 max-w-md bg-indigo-50 p-6 pt-12 rounded-xl shadow-lg relative border-t-8 border-yellow-500 animate-on-scroll scale-up" style="transition-delay: 450ms;">
-                    <div class="absolute top-0 left-0 p-3 bg-yellow-500 rounded-br-xl rounded-tl-xl">
-                        <i class="fas fa-quote-left text-white text-2xl"></i>
-                    </div>
-                    <p class="text-gray-700 text-lg italic mb-6">
-                        "The personalized attention helped me significantly improve my grades, especially in Mathematics and Science. I highly recommend Centum to every student looking for serious academic support."
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <img class="w-12 h-12 rounded-full object-cover ring-2 ring-yellow-500" src="https://fadcdn.s3.ap-south-1.amazonaws.com/media/1458/Lead_image_79974.jpg" alt="Rahul">
-                        <div>
-                            <p class="font-bold text-indigo-800">RAHUL</p>
-                            <p class="text-sm text-gray-500">9TH GRADE STUDENT, PALAKKAD</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <a href="#enroll" class="inline-block build-resume-button bg-indigo-600 text-white font-bold py-3 px-10 rounded-xl shadow-xl hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
-                Join Centum Now
-            </a>
-            <div class="mt-4 text-gray-600 font-semibold">
-                Excellent <span class="text-yellow-500 text-xl">★★★★★</span> 100+ Verified Reviews
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-   <!-- Call to Action/Enrollment Section (Updated to Two-Column Template) -->
-    <section id="enroll" class="py-20 bg-indigo-800 text-white animate-on-scroll fade-in">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden lg:grid lg:grid-cols-2">
-                
-                <!-- Left Column: Featurette/Pitch (Dark Background) -->
-                <div class="p-8 md:p-12 lg:p-16 bg-gray-900 text-white flex flex-col justify-center">
-                    <div class="flex items-center mb-6">
-                        <i class="fas fa-graduation-cap text-4xl text-yellow-400 mr-4"></i>
-                        <h3 class="text-3xl font-extrabold tracking-tight">Secure Your Seat, Hassle-Free</h3>
-                    </div>
-                    
-                    <p class="text-gray-300 text-lg mb-8">
-                        Register directly for our specialized 8th, 9th, and 10th grade tuition batches. We connect students with verified expert faculty right here in Cherpulassery.
-                    </p>
-
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-lg"></i>
-                            <span>Direct Access to Expert Kerala Syllabus Tutors</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-lg"></i>
-                            <span>Transparent Batch Timings and Fee Structure</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-lg"></i>
-                            <span>Dedicated Guidance and Study Materials</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-lg"></i>
-                            <span>Seamless Registration and Instant Confirmation</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Right Column: Registration Form (Light Background) -->
-                <div class="p-8 md:p-12 lg:p-16 text-gray-800">
-                    <h4 class="text-xl font-bold mb-6 flex items-center text-indigo-600">
-                        <i class="fas fa-pencil-alt mr-3"></i> REGISTER HERE
-                    </h4>
-                    
-                    <form id="registrationForm" class="space-y-6">
-                        
-                        <!-- Row 1: Full Name / Email -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card register-form animate-on-scroll fade-in-right delay-1">
+                        <h3>REGISTER HERE</h3>
+                        <form id="registration-form">
                             <div class="form-group">
-                                <label for="studentName" class="sr-only">Enter Full Name (Student)</label>
-                                <input type="text" id="studentName" placeholder="Enter Student Full Name" required 
-                                       class="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-indigo-600 transition duration-200">
+                                <input type="text" id="student-name" placeholder="Enter Full Name (Student)" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" id="email" placeholder="Email (Parent/Guardian)" required
-                                       class="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-indigo-600 transition duration-200">
+                             <div class="form-group">
+                                <input type="email" id="student-email" placeholder="Email" required>
                             </div>
-                        </div>
-
-                        <!-- Row 2: Phone Number / Grade -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="form-group">
-                                <label for="phone" class="sr-only">Phone Number</label>
-                                <input type="tel" id="phone" placeholder="Phone Number" required
-                                       class="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-indigo-600 transition duration-200">
+                             <div class="form-group">
+                                <input type="tel" id="student-phone" placeholder="Phone Number" required>
                             </div>
-                            <div class="form-group">
-                                <label for="grade" class="sr-only">Current Grade</label>
-                                <select id="grade" required
-                                        class="w-full p-2 border-b-2 border-gray-300 bg-white focus:outline-none focus:border-indigo-600 transition duration-200 appearance-none cursor-pointer">
+                             <div class="form-group">
+                                <select id="student-grade" required>
                                     <option value="" disabled selected>Select Current Grade</option>
                                     <option value="8">8th Grade</option>
                                     <option value="9">9th Grade</option>
                                     <option value="10">10th Grade</option>
-                                    <option value="other">Other Inquiry</option>
+                                    <option value="11">11th Grade</option>
+                                    <option value="12">12th Grade</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <!-- Row 3: Current School / Preferred Location (Optional) -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="form-group">
-                                <label for="school" class="sr-only">Current School</label>
-                                <input type="text" id="school" placeholder="Current School Name" required
-                                       class="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-indigo-600 transition duration-200">
+                             <div class="form-group">
+                                <input type="text" id="student-school" placeholder="Current School">
                             </div>
-                            
-                        </div>
-
-                        <!-- Row 4: Message (Full Width) -->
-                        <div class="form-group pt-4">
-                            <label for="message" class="sr-only">Inquiry Message</label>
-                            <textarea id="message" placeholder="Type Your Inquiry Message (e.g., 'Looking for Math tuition batch timings')" rows="3"
-                                      class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 transition duration-200 resize-none"></textarea>
-                        </div>
-                        
-                        <!-- Terms and Button -->
-                        <div class="flex items-start space-x-2">
-                            <input type="checkbox" id="terms" required class="mt-1 h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                            <label for="terms" class="text-sm text-gray-500 leading-tight">
-                                I agree to the <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800">Terms and Conditions</a> and Privacy Policy.
-                            </label>
-                        </div>
-
-                        <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg shadow-xl hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.01]">
-                            Register & Get Batch Details
-                        </button>
-                    </form>
-                    <div id="formStatus" class="mt-4 text-center text-sm font-medium"></div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-gray-50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-12 animate-on-scroll fade-in">Frequently Asked Questions</h2>
-            
-            <div class="accordion text-left space-y-4">
-                
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up">
-                    <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
-                        <span>What classes and syllabus do you cover?</span>
-                        <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 text-gray-600">
-                        <p>Centum Tuition Center offers classes for 8th, 9th,10th, 11th ,12th-grade students, specializing entirely in the Kerala State Syllabus. We cover Mathematics, Science, Social Studies, English, and Malayalam.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 150ms;">
-                    <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
-                        <span>Do you offer classes in both English and Malayalam mediums?</span>
-                        <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 text-gray-600">
-                        <p>Yes, we proudly provide tuition in both English and Malayalam mediums to ensure every student feels comfortable and can grasp complex concepts in their preferred language.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 300ms;">
-                    <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
-                        <span>How do I enroll my child and what is the fee structure?</span>
-                        <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 text-gray-600">
-                        <p>To enroll, please click the 'Submit Your Inquiry' button above, or visit our center in Cherpulassery. For detailed information on our competitive fee structure and flexible batch timings, please contact us directly.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden animate-on-scroll slide-in-up" style="transition-delay: 450ms;">
-                    <button class="accordion-header w-full flex justify-between items-center p-5 text-lg font-semibold text-gray-800 hover:bg-gray-100 transition duration-300">
-                        <span>How do you ensure academic success?</span>
-                        <i class="fas fa-chevron-down text-indigo-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 text-gray-600">
-                        <p>We ensure success through a combination of expert faculty, structured weekly lesson plans, regular internal assessments, personalized progress reports, and dedicated revision sessions focused on exam patterns.</p>
+                             <div class="form-group">
+                                <textarea id="inquiry-message" rows="4" placeholder="Inquiry Message (Optional)"></textarea>
+                            </div>
+                             <div class="form-group checkbox-group">
+                                <input type="checkbox" id="terms" required>
+                                <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Register & Get Batch Details</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Mobile Menu Panel -->
-    <div id="mobile-menu" class="fixed inset-0 bg-indigo-900 bg-opacity-95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-        <div class="flex flex-col items-center justify-center h-full space-y-6 text-2xl">
-            <a href="#programs" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">Programs</a>
-            <a href="#aboutus" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">About Us</a>
-            <a href="#success" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">Success Stories</a>
-            <a href="#faq" class="mobile-menu-link text-white hover:text-yellow-300 transition duration-300">FAQ</a>
-            <a href="#enroll" class="mobile-menu-link mt-8 bg-yellow-400 text-indigo-900 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-yellow-300 transition duration-300">
-                Enroll Now
-            </a>
-        </div>
-    </div>
-
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-gray-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-6 gap-8 mb-10 border-b border-gray-700 pb-10">
-                <div class="col-span-2 md:col-span-1">
-                    <h4 class="text-2xl font-extrabold text-indigo-400 mb-4">CENTUM</h4>
-                    <p class="text-gray-400 text-sm">Empowering students in Palakkad for a brighter future.</p>
-                </div>
-                
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
                 <div class="footer-col">
-                    <h5 class="font-semibold text-indigo-400 mb-4">Programs</h5>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#programs" class="hover:text-white transition duration-200">Math & Science</a></li>
-                        <li><a href="#programs" class="hover:text-white transition duration-200">Languages</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-200">8th Grade</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-200">10th Grade Board Prep</a></li>
+                    <a href="#" class="logo">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ28SELqMf_xjvFnRvohJuQIuf0cEKM6K9lmA&s" alt="Centum Logo">
+                        <div class="logo-text">
+                            <span class="brand-name">CENTUM</span>
+                            <span class="subtitle">Cherpulassery</span>
+                        </div>
+                    </a>
+                    <p>Dedicated to providing high-quality coaching and nurturing the future achievers of Kerala.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#register">Register</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-col">
-                    <h5 class="font-semibold text-indigo-400 mb-4">Quick Links</h5>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#enroll" class="hover:text-white transition duration-200">Enrollment</a></li>
-                        <li><a href="#success" class="hover:text-white transition duration-200">Testimonials</a></li>
-                        <li><a href="#faq" class="hover:text-white transition duration-200">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-200">Career</a></li>
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><p>Cherpulassery, Palakkad, Kerala</p></li>
+                        <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+                        <li><a href="mailto:info@centumtuition.com">info@centumtuition.com</a></li>
                     </ul>
                 </div>
-
-                <div class="footer-col md:col-span-2">
-                    <h5 class="font-semibold text-indigo-400 mb-4">Contact Info</h5>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> Cherpulassery, Palakkad, Kerala</li>
-                        <li><i class="fas fa-envelope mr-2"></i> support@centumtuition.com</li>
-                        <li><i class="fas fa-phone mr-2"></i> +91 7593038781 (Mock)</li>
-                        <li class="mt-4"><span class="text-white font-bold">Languages:</span> English & Malayalam</li>
-                    </ul>
-                </div>
-
                 <div class="footer-col">
-                    <h5 class="font-semibold text-indigo-400 mb-4">Follow Us</h5>
-                    <div class="flex space-x-4 social-icons">
-                        <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300"><i class="fab fa-facebook-f text-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300"><i class="fab fa-twitter text-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300"><i class="fab fa-linkedin-in text-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300"><i class="fab fa-instagram text-lg"></i></a>
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Facebook</title><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                        <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Instagram</title><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.314.935 20.644.522 19.854.218 19.09.083 18.22.015 16.947 0 15.667 0 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.06 1.17-.249 1.805-.413 2.227-.217.562-.477.96-.896 1.382-.42.419-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07s-3.585-.015-4.85-.074c-1.17-.06-1.805-.249-2.227-.413-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.82-1.381-.896-.422-.164-1.057-.36-2.227-.413-1.266-.057-1.646-.07-4.85-.07s-3.585.015-4.85.074c-1.17.06-1.805.249-2.227.413-.563.217-.96.477-1.382.896-.42.42-.82.679-1.38.896-.423.164-1.057.36-2.227.413C3.585 21.82 3.203 21.84 0 21.84s-3.585-.015-4.85-.074c-1.17-.06-1.805-.249-2.227-.413-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.819-1.381-.896-.422-.164-1.057-.36-2.227-.413-1.266-.057-1.646-.07-4.85-.07s-3.585.015-4.85.074c-1.17.06-1.805.249-2.227.413-.563.217-.96.477-1.382.896-.42.42-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07zm0 5.838a6 6 0 100 12 6 6 0 000-12zm0 9.84a3.84 3.84 0 110-7.68 3.84 3.84 0 010 7.68zM20.42 4.58a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>WhatsApp</title><path d="M12.04 2.02c-5.52 0-9.99 4.47-9.99 9.99s4.47 9.99 9.99 9.99c1.64 0 3.2-.4 4.59-1.12l-1.34-2.31c-.89.45-1.93.71-3.03.71-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7c0 1.29-.35 2.5-.97 3.56l2.33 1.34c.89-1.55 1.41-3.34 1.41-5.26.01-5.52-4.46-9.99-9.99-9.99zm-2.01 6.55c-.27 0-.52.12-.69.32l-1.17 1.34c-.39.45-.06 1.15.53 1.54l1.39.91c.27.18.61.18.88 0l1.39-.91c.59-.39.92-1.09.53-1.54l-1.17-1.34c-.17-.2-.42-.32-.69-.32zm4.01 0c-.27 0-.52.12-.69.32l-1.17 1.34c-.39.45-.06 1.15.53 1.54l1.39.91c.27.18.61.18.88 0l1.39-.91c.59-.39.92-1.09.53-1.54l-1.17-1.34c-.17-.2-.42-.32-.69-.32z"/></svg></a>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center text-gray-500 text-sm pt-4">
-                © 2025 Centum Tuition Center. All rights reserved. POWERED BY DEVCOTEL.
+            <div class="footer-bottom">
+                <p>&copy; 2024 Centum Tuition Center. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-
-    <!-- JavaScript for Interactions -->
     <script>
-        // Mobile Menu Logic
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
-        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-        const body = document.querySelector('body');
-
-        function openMenu() {
-            mobileMenu.classList.remove('translate-x-full');
-            body.style.overflow = 'hidden';
-            mobileMenuIcon.classList.remove('fa-bars');
-            mobileMenuIcon.classList.add('fa-times');
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
-        }
-
-        function closeMenu() {
-            mobileMenu.classList.add('translate-x-full');
-            body.style.overflow = 'auto';
-            mobileMenuIcon.classList.remove('fa-times');
-            mobileMenuIcon.classList.add('fa-bars');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-        }
-
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                if (isOpen) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-        }
-
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                closeMenu();
-            });
-        });
         
-        // Accordion Logic
-        document.querySelectorAll('.accordion-header').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const content = btn.nextElementSibling;
-                const isActive = btn.classList.toggle('active');
+document.addEventListener('DOMContentLoaded', () => {
 
-                // Close all other open accordions
-                document.querySelectorAll('.accordion-header').forEach(otherBtn => {
-                    if (otherBtn !== btn) {
-                        otherBtn.classList.remove('active');
-                        otherBtn.nextElementSibling.classList.remove('show');
+    // --- Theme Switcher ---
+    const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+    const htmlEl = document.documentElement;
+    
+    // Apply the saved theme on initial load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    // --- FAQ Accordion ---
+    const faqItems = document.querySelectorAll<HTMLElement>('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector<HTMLButtonElement>('.faq-question');
+        const answer = item.querySelector<HTMLElement>('.faq-answer');
+        
+        if (question && answer) {
+            question.addEventListener('click', () => {
+                const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+                // Close any other open FAQ item
+                const currentlyActiveItem = document.querySelector<HTMLElement>('.faq-item.active');
+                if (currentlyActiveItem && currentlyActiveItem !== item) {
+                    currentlyActiveItem.classList.remove('active');
+                    const activeQuestion = currentlyActiveItem.querySelector<HTMLButtonElement>('.faq-question');
+                    const activeAnswer = currentlyActiveItem.querySelector<HTMLElement>('.faq-answer');
+                    if (activeQuestion && activeAnswer) {
+                        activeQuestion.setAttribute('aria-expanded', 'false');
+                        activeAnswer.setAttribute('aria-hidden', 'true');
                     }
-                });
-
-                // Toggle current accordion
-                if (isActive) {
-                    content.classList.add('show');
-                } else {
-                    content.classList.remove('show');
                 }
+
+                // Toggle the clicked item
+                item.classList.toggle('active');
+                question.setAttribute('aria-expanded', String(!isExpanded));
+                answer.setAttribute('aria-hidden', String(isExpanded));
             });
+        }
+    });
+
+
+    // --- Mobile Navigation ---
+    const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+    const navMenu = document.querySelector<HTMLElement>('.nav-menu');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isActive = navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+            document.body.classList.toggle('no-scroll', isActive);
         });
 
-        // Animated Counter Logic
-        const animateCounter = (element, target) => {
-            let start = 0;
-            const duration = 1500; // Animation duration in ms
-            const stepTime = Math.abs(Math.floor(duration / target));
-            
-            const timer = setInterval(() => {
-                start += 1;
-                element.textContent = start;
-                if (start === target) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
+        const closeMenu = () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.classList.remove('no-scroll');
         };
 
-        // Intersection Observer for scroll animations
+        // Close menu when a link is clicked
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+             const target = e.target;
+             if (target instanceof Node && navMenu.classList.contains('active') && !navMenu.contains(target) && target !== navToggle && !navToggle.contains(target)) {
+                closeMenu();
+            }
+        });
+    }
+
+    // --- Animated Stats Counter ---
+    const statsSection = document.querySelector<HTMLElement>('.hero-stats');
+
+    if (statsSection) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    statsSection.classList.add('in-view');
+                    const counters = document.querySelectorAll<HTMLElement>('.stat-item h3');
+                    counters.forEach(counter => {
+                        const target = +(counter.getAttribute('data-target') || '0');
+                        const duration = 2000; // 2 seconds
+                        const suffix = counter.innerText.replace(/[0-9]/g, '');
+                        let current = 0;
+                        const increment = target / (duration / 16); // ~60fps
+    
+                        const updateCount = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current) + suffix;
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target + suffix;
+                            }
+                        };
+                        requestAnimationFrame(updateCount);
+                    });
+                    statsObserver.unobserve(statsSection); // Animate only once
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+    
+        statsObserver.observe(statsSection);
+    }
+    
+    // --- General On-Scroll Animations ---
+    const animatedElements = document.querySelectorAll<HTMLElement>('.animate-on-scroll');
+    
+    if (animatedElements.length > 0) {
         const animationObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Standard scroll animations
-                    entry.target.classList.add('visible');
-                    
-                    // Trigger counter animation if the element has the .counter class
-                    if (entry.target.classList.contains('counter')) {
-                        const targetNumber = parseInt(entry.target.getAttribute('data-target'), 10);
-                        animateCounter(entry.target, targetNumber);
-                    }
-
-                    // Stop observing the element after animation
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Animate only once
                 }
             });
-        }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    
+        animatedElements.forEach(el => {
+            animationObserver.observe(el);
         });
+    }
 
-        // Observe elements with .animate-on-scroll
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-            animationObserver.observe(element);
-        });
+    // --- Registration Form to WhatsApp ---
+    const registrationForm = document.querySelector<HTMLFormElement>('#registration-form');
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        // Observe counter elements
-        document.querySelectorAll('.counter').forEach(element => {
-            animationObserver.observe(element);
+            const nameInput = document.querySelector<HTMLInputElement>('#student-name');
+            const emailInput = document.querySelector<HTMLInputElement>('#student-email');
+            const phoneInput = document.querySelector<HTMLInputElement>('#student-phone');
+            const gradeSelect = document.querySelector<HTMLSelectElement>('#student-grade');
+            const schoolInput = document.querySelector<HTMLInputElement>('#student-school');
+            const messageTextarea = document.querySelector<HTMLTextAreaElement>('#inquiry-message');
+            const termsCheckbox = document.querySelector<HTMLInputElement>('#terms');
+
+            if (!nameInput || !emailInput || !phoneInput || !gradeSelect || !schoolInput || !messageTextarea || !termsCheckbox) {
+                console.error("One or more form fields are missing!");
+                return;
+            }
+
+            if (!termsCheckbox.checked) {
+                alert('You must agree to the Terms and Conditions.');
+                return;
+            }
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const grade = gradeSelect.value;
+            const school = schoolInput.value.trim();
+            const message = messageTextarea.value.trim();
+
+            const whatsappNumber = '7593038781';
+
+            let formattedMessage = `*New Student Registration*\n\n`;
+            formattedMessage += `*Name:* ${name}\n`;
+            formattedMessage += `*Email:* ${email}\n`;
+            formattedMessage += `*Phone:* ${phone}\n`;
+            formattedMessage += `*Grade:* ${grade}\n`;
+            if (school) {
+                formattedMessage += `*School:* ${school}\n`;
+            }
+            if (message) {
+                formattedMessage += `*Message:* ${message}\n`;
+            }
+
+            const encodedMessage = encodeURIComponent(formattedMessage);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+            registrationForm.reset();
         });
+    }
+});
     </script>
 </body>
 </html>
