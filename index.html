@@ -1,10 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centum Tuition Center</title>
-    <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +21,7 @@
     --border-color: #E2E8F0;
     --white: #FFFFFF;
     --font-family: 'Poppins', sans-serif;
+    --teal-highlight-bg: #D6F2E9;
 }
 
 html[data-theme='dark'] {
@@ -30,6 +32,7 @@ html[data-theme='dark'] {
     --light-gray: #1E293B;     /* Was light bg, now dark element bg */
     --border-color: #334155;   /* Darker border */
     --white: #0F172A;          /* Was white bg, now main dark bg */
+    --teal-highlight-bg: #2D6A56;
     color-scheme: dark;
 }
 
@@ -71,7 +74,7 @@ h2 { font-size: 2.25rem; }
 h3 { font-size: 1.25rem; }
 
 section {
-    padding: 80px 0;
+    padding: 100px 0;
 }
 
 .section-header {
@@ -250,6 +253,7 @@ html[data-theme='dark'] .moon-icon { display: none; }
 html[data-theme='dark'] .sun-icon { display: block; }
 
 .nav-toggle { display: none; }
+.enroll-btn-mobile { display: none; }
 
 
 /* --- Hero Section --- */
@@ -357,10 +361,68 @@ html[data-theme='dark'] .hero-stats {
 }
 
 /* --- About Section --- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.about-image img {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+.about-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
 .about-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+}
+
+/* --- Learn Anything Section --- */
+.learn-anything-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.learn-anything-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.learn-anything-content .highlight-teal {
+    background-color: var(--teal-highlight-bg);
+    padding: 0 8px;
+    border-radius: 4px;
+    color: var(--dark-blue);
+    display: inline;
+}
+
+.learn-anything-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 450px;
+}
+
+.learn-anything-image {
+    position: relative;
+    text-align: center;
+}
+
+.learn-anything-image svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
 }
 
 /* --- Why Choose Us Section --- */
@@ -801,6 +863,18 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
         font-size: 2rem;
     }
     
+    .learn-anything-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .learn-anything-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .learn-anything-image {
+        margin-top: 40px;
+    }
+
     .why-grid { grid-template-columns: repeat(2, 1fr); }
     .register-content { grid-template-columns: 1fr; }
     .contact-info {
@@ -841,7 +915,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
-    section { padding: 60px 0; }
+    section { padding: 70px 0; }
     
     .hero {
         background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0.9) 70%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop');
@@ -933,6 +1007,15 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
     
     .stats-grid { grid-template-columns: 1fr; gap: 25px; }
     .stat-item { justify-content: flex-start; }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    .about-image {
+        order: -1; /* Move image to the top on mobile */
+    }
     .about-cards { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
@@ -960,6 +1043,10 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
     
     .subtitle {
         font-size: 0.65rem;
+    }
+    
+    .learn-anything-content h2 {
+        font-size: 2.2rem;
     }
 
     .register-benefits span {
@@ -998,6 +1085,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
                     <li><a href="#">Notifications</a></li>
                     <li><a href="#about">About Us</a></li>
                 </ul>
+               <a href="#register" class="btn btn-primary enroll-btn-mobile">Enroll Now</a>
             </nav>
             <div class="nav-actions">
                  <a href="#register" class="btn btn-primary enroll-btn-desktop">Enroll</a>
@@ -1050,8 +1138,17 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             <div class="section-header animate-on-scroll">
                 <p class="section-subtitle">Who We Are</p>
                 <h2 class="section-title">Nurturing Future <span class="highlight-orange">Centum</span> Achievers</h2>
-                <p>Centum Tuition Center was founded with a single mission: to provide focused, high-quality coaching for students following the Kerala State Syllabus. We understand the unique requirements of the board and structure our teaching to maximize results for 8th, 9th, 10th, 11th, and 12th-grade students.</p>
             </div>
+
+            <div class="about-grid">
+                <div class="about-text animate-on-scroll fade-in-left">
+                    <p>Centum Tuition Center was founded with a single mission: to provide focused, high-quality coaching for students following the Kerala State Syllabus. We understand the unique requirements of the board and structure our teaching to maximize results for 8th, 9th, 10th, 11th, and 12th-grade students.</p>
+                </div>
+                <div class="about-image animate-on-scroll fade-in-right delay-1">
+                    <img src="https://www.shutterstock.com/image-vector/little-kid-holding-trophy-feel-600nw-2364010381.jpg" alt="Student Achiever with Trophy">
+                </div>
+            </div>
+
             <div class="about-cards">
                 <div class="card animate-on-scroll fade-in-left">
                     <h3>Personalized Guidance</h3>
@@ -1060,6 +1157,78 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
                 <div class="card animate-on-scroll fade-in-right delay-1">
                     <h3>Expert Faculty</h3>
                     <p>Our experienced tutors are specialists in the Kerala State curriculum and exam patterns.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learn" class="container">
+            <div class="learn-anything-grid">
+                <div class="learn-anything-content animate-on-scroll fade-in-left">
+                    <p class="section-subtitle" style="color: var(--slate-gray);">LEARNERS AND STUDENTS</p>
+                    <h2><span class="highlight-teal">You</span> can learn anything.</h2>
+                    <p>Build a deep, solid understanding in math, science, grammar, history, SAT®, and more.</p>
+                    <a href="#register" class="btn btn-primary" style="background-color: #2563EB; border-color: #2563EB;">Learners, start here</a>
+                </div>
+                <div class="learn-anything-image animate-on-scroll fade-in-right delay-1">
+                    <svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="grainy" x="0" y="0" width="100%" height="100%">
+                                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+                                <feComposite operator="in" in2="SourceGraphic"/>
+                            </filter>
+                        </defs>
+                        <g opacity="0.5">
+                            <path d="M50 150 Q 150 100 250 150 T 450 150" stroke="#A5D8FF" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="4 8"/>
+                            <path d="M50 160 Q 150 110 250 160 T 450 160" stroke="#A5D8FF" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="4 8"/>
+                            <path d="M50 170 Q 150 120 250 170 T 450 170" stroke="#A5D8FF" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="4 8"/>
+                        </g>
+                        <g transform="translate(20, 20)">
+                            <path d="M222.6,33.5C214,29.3,196.1,25,196.1,25s-5.6-22.5-20.3-22.5s-20.3,22.5-20.3,22.5s-17.9,4.3-26.5,8.5 c-8.6,4.2-22,17.2-22,33.2s13.3,29,22,33.2c8.6,4.2,26.5,8.5,26.5,8.5s5.6,22.5,20.3,22.5s20.3-22.5,20.3-22.5s17.9-4.3,26.5-8.5 c8.6-4.2,22-17.2,22-33.2S231.2,37.7,222.6,33.5z" fill="#FDBA74" />
+                            <path d="M 80 150 L 300 150 L 320 200 L 60 200 Z" fill="#60A561" />
+                            <path d="M 90 60 L 290 60 L 300 150 L 80 150 Z" fill="#60A561" />
+                            <rect x="95" y="65" width="190" height="80" fill="#1E392A" rx="5" />
+                            <g style="filter: url(#grainy);" opacity="0.3">
+                                <path d="M 80 150 L 300 150 L 320 200 L 60 200 Z" fill="black" />
+                                <path d="M 90 60 L 290 60 L 300 150 L 80 150 Z" fill="black" />
+                            </g>
+                            <path d="m110 90 l20 -20 l60 0 l20 20" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="m115 95 l10 -10 l0 10 l-10 0" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="m118 92 l-4 4" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="m140 85 l-10 -10" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="m145 90 l-10 -10" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round" />
+                            
+                            <path d="M115 105 L155 105" stroke="#FFF" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M115 115 L175 115" stroke="#FFF" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M115 125 L165 125" stroke="#FFF" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M100 110 l5 -5 l5 5" stroke="#FFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M100 120 l5 -5 l5 5" stroke="#FFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            
+                            <circle cx="190" cy="95" r="5" fill="#FFF" />
+                            
+                            <rect x="200" y="118" width="40" height="15" fill="#2563EB" rx="3" />
+                            
+                            <path d="M250 125 L 260 135 L 250 145 Z" fill="#FFF" />
+                            
+                            <g transform="translate(300 180)">
+                                <path d="M-15 15 L 15 15 L 15 -15 L-5 -15 L-15 5 z" stroke="#1E293B" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+                                <line x1="15" y1="0" x2="30" y2="-30" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                                <line x1="-15" y1="30" x2="15" y2="30" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                                <line x1="0" y1="30" x2="0" y2="45" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                                <line x1="-10" y1="30" x2="-10" y2="45" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                                <line x1="10" y1="30" x2="10" y2="45" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                                <g fill="#1E293B">
+                                    <circle cx="340" cy="140" r="2" />
+                                    <circle cx="355" cy="155" r="1.5" />
+                                    <circle cx="350" cy="130" r="1" />
+                                    <path d="m360 145 l2 2 l-2 2 l-2-2 z" />
+                                </g>
+                                <g transform="translate(320, 160)">
+                                    <circle cx="0" cy="0" r="10" stroke="#1E293B" stroke-width="3" fill="none" />
+                                    <path d="M -15 0 A 15 5 0 0 1 15 0" stroke="#1E293B" stroke-width="3" fill="none" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
             </div>
         </section>
@@ -1265,6 +1434,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
                                 <input type="checkbox" id="terms" required>
                                 <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</label>
                             </div>
+                            <div id="form-error-message" style="display: none; color: #DC2626; background-color: #FEF2F2; padding: 10px 16px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 500;"></div>
                             <button type="submit" class="btn btn-primary btn-full">Register & Get Batch Details</button>
                         </form>
                     </div>
@@ -1307,7 +1477,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
                     <h4>Follow Us</h4>
                     <div class="social-links">
                         <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Facebook</title><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-                        <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Instagram</title><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.314.935 20.644.522 19.854.218 19.09.083 18.22.015 16.947 0 15.667 0 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.06 1.17-.249 1.805-.413 2.227-.217.562-.477.96-.896 1.382-.42.419-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07s-3.585-.015-4.85-.074c-1.17-.06-1.805-.249-2.227-.413-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.82-1.381-.896-.422-.164-1.057-.36-2.227-.413-1.266-.057-1.646-.07-4.85-.07s-3.585.015-4.85.074c-1.17.06-1.805.249-2.227.413-.563.217-.96.477-1.382.896-.42.42-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07zm0 5.838a6 6 0 100 12 6 6 0 000-12zm0 9.84a3.84 3.84 0 110-7.68 3.84 3.84 0 010 7.68zM20.42 4.58a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+                        <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Instagram</title><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.314.935 20.644.522 19.854.218 19.09.083 18.22.015 16.947 0 15.667 0 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.06 1.17-.249 1.805-.413 2.227-.217.562-.477.96-.896 1.382-.42.419-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07s-3.585-.015-4.85-.074c-1.17-.06-1.805-.249-2.227-.413-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.82-1.381-.896-.422-.164-1.057-.36-2.227-.413-1.266-.057-1.646-.07-4.85-.07s-3.585.015-4.85.074c-1.17.06-1.805.249-2.227.413-.563.217-.96.477-1.382.896-.42.42-.82.679-1.38.896-.423.164-1.057.36-2.227.413-1.266-.057-1.646-.07-4.85.07zm0 5.838a6 6 0 100 12 6 6 0 000-12zm0 9.84a3.84 3.84 0 110-7.68 3.84 3.84 0 010 7.68zM20.42 4.58a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
                         <a href="#"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>WhatsApp</title><path d="M12.04 2.02c-5.52 0-9.99 4.47-9.99 9.99s4.47 9.99 9.99 9.99c1.64 0 3.2-.4 4.59-1.12l-1.34-2.31c-.89.45-1.93.71-3.03.71-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7c0 1.29-.35 2.5-.97 3.56l2.33 1.34c.89-1.55 1.41-3.34 1.41-5.26.01-5.52-4.46-9.99-9.99-9.99zm-2.01 6.55c-.27 0-.52.12-.69.32l-1.17 1.34c-.39.45-.06 1.15.53 1.54l1.39.91c.27.18.61.18.88 0l1.39-.91c.59-.39.92-1.09.53-1.54l-1.17-1.34c-.17-.2-.42-.32-.69-.32zm4.01 0c-.27 0-.52.12-.69.32l-1.17 1.34c-.39.45-.06 1.15.53 1.54l1.39.91c.27.18.61.18.88 0l1.39-.91c.59-.39.92-1.09.53-1.54l-1.17-1.34c-.17-.2-.42-.32-.69-.32z"/></svg></a>
                     </div>
                 </div>
@@ -1317,8 +1487,8 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             </div>
         </div>
     </footer>
-    <script>
-        
+    <script> 
+      
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Switcher ---
@@ -1468,6 +1638,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const schoolInput = document.querySelector('#student-school');
             const messageTextarea = document.querySelector('#inquiry-message');
             const termsCheckbox = document.querySelector('#terms');
+            const errorMessage = document.querySelector('#form-error-message');
+
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
 
             if (!nameInput || !emailInput || !phoneInput || !gradeSelect || !schoolInput || !messageTextarea || !termsCheckbox) {
                 console.error("One or more form fields are missing!");
@@ -1475,7 +1650,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!termsCheckbox.checked) {
-                alert('You must agree to the Terms and Conditions.');
+                if (errorMessage) {
+                    errorMessage.innerText = 'You must agree to the Terms and Conditions.';
+                    errorMessage.style.display = 'block';
+                }
                 return;
             }
 
@@ -1511,4 +1689,3 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
-
