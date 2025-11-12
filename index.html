@@ -54,7 +54,8 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.no-scroll {
+body.no-scroll,
+body.modal-open {
     overflow: hidden;
 }
 
@@ -69,7 +70,7 @@ h1, h2, h3, h4 {
     font-weight: 600;
 }
 
-h1 { font-size: 3rem; line-height: 1.2; }
+h1 { font-size: 3rem; }
 h2 { font-size: 2.25rem; }
 h3 { font-size: 1.25rem; }
 
@@ -537,6 +538,96 @@ html[data-theme='dark'] .program-icon {
     flex-shrink: 0;
 }
 
+/* --- Blogs & News Section --- */
+.blogs-section {
+    background-color: var(--white);
+}
+html[data-theme='dark'] .blogs-section {
+    background-color: var(--white);
+}
+.blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.blog-card {
+    background-color: var(--light-gray);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+html[data-theme='dark'] .blog-card {
+    background-color: var(--light-gray);
+}
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.blog-image-wrapper {
+    position: relative;
+}
+.blog-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+.blog-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.blog-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.blog-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: auto; /* Pushes date and read more down */
+    color: var(--dark-blue);
+}
+.blog-read-more {
+    color: #22c55e; /* Green color */
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    display: inline-block;
+}
+.blog-read-more:hover {
+    text-decoration: underline;
+}
+.blog-date {
+    font-size: 0.85rem;
+    color: var(--slate-gray);
+    margin-top: 20px;
+}
+.blogs-action {
+    text-align: center;
+    margin-top: 50px;
+}
+.btn-know-more {
+    background-color: #22c55e;
+    color: white;
+    border-color: #22c55e;
+}
+.btn-know-more:hover {
+    background-color: #16a34a;
+    border-color: #16a34a;
+}
+
 
 /* --- FAQ Section --- */
 .faq-accordion {
@@ -824,6 +915,67 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
 }
 
 
+/* --- News Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+body.modal-open .modal-overlay {
+    display: flex;
+    opacity: 1;
+}
+.modal-content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 1100px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+body.modal-open .modal-content {
+    transform: scale(1);
+}
+html[data-theme='dark'] .modal-content {
+    background: var(--light-gray);
+}
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--light-gray);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--slate-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+}
+html[data-theme='dark'] .modal-close-btn {
+    background: var(--white);
+}
+
+
 /* --- Scroll Animation --- */
 .animate-on-scroll {
     opacity: 0;
@@ -876,6 +1028,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
     }
 
     .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .blogs-grid { grid-template-columns: repeat(2, 1fr); }
     .register-content { grid-template-columns: 1fr; }
     .contact-info {
         display: grid;
@@ -1018,6 +1171,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
     }
     .about-cards { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
+    .blogs-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
 }
 
@@ -1080,9 +1234,9 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             </a>
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="#">Study Materials</a></li>
-                    <li><a href="#">Skill Development</a></li>
-                    <li><a href="#">Notifications</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1vzDjZ8Nr4mkWbJtYCwoS-igaIol50mjA?usp=sharing">Study Materials</a></li>
+                    <li><a href="https://krishnadev-devco.github.io/form-test/">Skill Development</a></li>
+                    <li><a href="#" id="open-news-modal">Notifications</a></li>
                     <li><a href="#about">About Us</a></li>
                 </ul>
                <a href="#register" class="btn btn-primary enroll-btn-mobile">Enroll Now</a>
@@ -1090,7 +1244,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             <div class="nav-actions">
                  <a href="#register" class="btn btn-primary enroll-btn-desktop">Enroll</a>
                  <button class="theme-toggle" aria-label="Toggle theme">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.591a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25a.75.75 0 01-.75.75zM5.197 17.803a.75.75 0 010-1.06l1.59-1.591a.75.75 0 111.06 1.06l-1.59 1.59a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.197a.75.75 0 011.06 0l1.591 1.59a.75.75 0 11-1.06 1.06L6.106 6.257a.75.75 0 010-1.06z"/></svg>
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.591a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25a.75.75 0 01-.75-.75zM5.197 17.803a.75.75 0 010-1.06l1.59-1.591a.75.75 0 111.06 1.06l-1.59 1.59a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.197a.75.75 0 011.06 0l1.591 1.59a.75.75 0 11-1.06 1.06L6.106 6.257a.75.75 0 010-1.06z"/></svg>
                     <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.638 4.43-8.528a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>
                  </button>
                  <button class="nav-toggle" aria-label="Toggle navigation">
@@ -1145,7 +1299,7 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
                     <p>Centum Tuition Center was founded with a single mission: to provide focused, high-quality coaching for students following the Kerala State Syllabus. We understand the unique requirements of the board and structure our teaching to maximize results for 8th, 9th, 10th, 11th, and 12th-grade students.</p>
                 </div>
                 <div class="about-image animate-on-scroll fade-in-right delay-1">
-                    <img src="https://www.shutterstock.com/image-vector/little-kid-holding-trophy-feel-600nw-2364010381.jpg" alt="Student Achiever with Trophy">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyoYBs0fLSNg7YJwdU9d0sdfh1i6rfJAdpemBEeCIGeRyrw4ehT1T0OKBR8ZJtf4ktEhZS4vJZiPFbhwUnnk9duZGfEj6lLokTfiDQJ1vd6lTqTVE0GRiQGpAW9Ts7tgDnXM0v4=s1360-w1360-h1020-rw" alt="Student Achiever with Trophy">
                 </div>
             </div>
 
@@ -1325,6 +1479,8 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             </div>
         </section>
 
+ 
+
         <section id="faq" class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Frequently Asked Questions</h2>
@@ -1442,6 +1598,55 @@ html[data-theme='dark'] .footer-col .logo-text .subtitle {
             </div>
         </section>
     </main>
+
+    <!-- News Modal -->
+    <div id="news-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+            <div class="section-header">
+                <h2 class="section-title">Latest Blogs & News</h2>
+            </div>
+            <div class="blogs-grid">
+                <!-- Blog Card 1 -->
+                <div class="blog-card">
+                    <div class="blog-image-wrapper">
+                        <img src="https://i.ibb.co/L5hY5m8/blog1.png" alt="Company Board LGS Assistant Prison Officer Notification" class="blog-image">
+                        <span class="blog-tag">NEWS</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Kerala Plus One, Plus Two Time Table 2026 Out; Check Complete Exam Schedule Here</h3>
+                        <a href="https://www.shiksha.com/news/boards-kerala-plus-one-plus-two-time-table-2026-out-check-complete-exam-schedule-here-blogId-212616" class="blog-read-more">READ MORE »</a>
+                    
+                        <p class="blog-date">October 31, 2025</p>
+                    </div>
+                </div>
+                <!-- Blog Card 2 -->
+                <div class="blog-card">
+                    <div class="blog-image-wrapper">g
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOWo3X6h3EG0kpyiaMt6gL6kiweeZejmrhg&s" alt="XYLEM NEST 2025-26 Guide" class="blog-image">
+                         <span class="blog-tag">NEST EXAM</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Kerala to be first with 100% in high tec schools</h3>
+                        <a href="#" class="blog-read-more">READ MORE »</a>
+                        <p class="blog-date">november 3, 2025</p>
+                    </div>
+                </div>
+                <!-- Blog Card 3 -->
+                <div class="blog-card">
+                    <div class="blog-image-wrapper">
+                        <img src="https://keralakaumudi.com/web-news/en/2022/05/NMAN0335432/image/kk.1.1640249.webp" alt="NEET 2026 Syllabus" class="blog-image">
+                        <span class="blog-tag">ENTRANCE</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Kerala DHSE Plus 2 results 2025 declared with 77.81% pass percentage: Girls outperform boys; Science stre</h3>
+                        <a href="#" class="blog-read-more">READ MORE »</a>
+                        <p class="blog-date">june 28, 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -1622,6 +1827,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
         animatedElements.forEach(el => {
             animationObserver.observe(el);
+        });
+    }
+
+    // --- News Modal ---
+    const openNewsBtn = document.getElementById('open-news-modal');
+    const newsModal = document.getElementById('news-modal');
+    
+    if (openNewsBtn && newsModal) {
+        const closeNewsBtn = newsModal.querySelector('.modal-close-btn');
+
+        const openModal = () => document.body.classList.add('modal-open');
+        const closeModal = () => document.body.classList.remove('modal-open');
+
+        openNewsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+
+        if (closeNewsBtn) {
+            closeNewsBtn.addEventListener('click', closeModal);
+        }
+
+        newsModal.addEventListener('click', (e) => {
+            // Check if the click is on the overlay itself
+            if (e.target === newsModal) {
+                closeModal();
+            }
         });
     }
 
